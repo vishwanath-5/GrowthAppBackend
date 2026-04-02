@@ -13,8 +13,8 @@ SECRET_KEY = os.getenv("SECRET_KEY", "dev-secret-key")
 DEBUG = True  # Change to False in production
 print("🔥 NEW SETTINGS LOADED 🔥")
 ALLOWED_HOSTS = [
-    "https://growthappbackend.onrender.com/",
-    "https://growthappmiddleware.onrender.com",
+    "growthappbackend.onrender.com",
+    "growthappmiddleware.onrender.com",
     "growthappmiddleware.onrender.com",
     "growthappfrontend.onrender.com",
     "localhost",
