@@ -10,9 +10,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # 🔐 Security
 SECRET_KEY = os.getenv("SECRET_KEY", "dev-secret-key")
-DEBUG = True
-ALLOWED_HOSTS = ["*"]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+DEBUG = True  # Change to False in production
+
+ALLOWED_HOSTS = [
+    "https://growthappmiddleware.onrender.com",
+    "growthappmiddleware.onrender.com",
+    "growthappfrontend.onrender.com",
+    "localhost",
+    "127.0.0.1",
+]
 
 # 📦 Installed Apps
 INSTALLED_APPS = [
@@ -33,10 +39,11 @@ INSTALLED_APPS = [
 
 # 🔧 Middleware
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',  # MUST be first
 
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
 
@@ -47,12 +54,21 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# 🌐 CORS (for React)
+# 🌐 CORS CONFIG (FINAL FIX)
 CORS_ALLOWED_ORIGINS = [
-    "*",
+    "https://growthappfrontend.onrender.com",
+    "https://growthappmiddleware.onrender.com",
+    "http://localhost:5173",
 ]
-CORS_ALLOW_ALL_ORIGINS = True
+
 CORS_ALLOW_CREDENTIALS = True
+
+# 🔐 CSRF (IMPORTANT for production)
+CSRF_TRUSTED_ORIGINS = [
+    "https://growthappfrontend.onrender.com",
+    "https://growthappmiddleware.onrender.com",
+]
+
 ROOT_URLCONF = 'core.urls'
 
 # 🧩 Templates
@@ -72,7 +88,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'core.wsgi.application'
 
-# 🗄️ Database (use SQLite for development)
+# 🗄️ Database (SQLite for now)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -93,10 +109,10 @@ REST_FRAMEWORK = {
     ),
 }
 
-# 🔥 JWT SETTINGS (VERY IMPORTANT)
+# 🔥 JWT SETTINGS
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
-    'AUTH_HEADER_TYPES': ('Bearer',),  # ✅ MUST MATCH FRONTEND
+    'AUTH_HEADER_TYPES': ('Bearer',),
 }
 
 # 🌍 Internationalization
@@ -107,3 +123,10 @@ USE_TZ = True
 
 # 📁 Static files
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# ⚡ WhiteNoise config (for Render)
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+# 🔒 Default primary key
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
