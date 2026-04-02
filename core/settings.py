@@ -11,7 +11,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # 🔐 Security
 SECRET_KEY = os.getenv("SECRET_KEY", "dev-secret-key")
 DEBUG = True  # Change to False in production
-
+print("🔥 NEW SETTINGS LOADED 🔥")
 ALLOWED_HOSTS = [
     "https://growthappbackend.onrender.com/",
     "https://growthappmiddleware.onrender.com",
