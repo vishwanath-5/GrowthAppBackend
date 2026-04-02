@@ -13,6 +13,7 @@ SECRET_KEY = os.getenv("SECRET_KEY", "dev-secret-key")
 DEBUG = True  # Change to False in production
 
 ALLOWED_HOSTS = [
+    "https://growthappbackend.onrender.com/",
     "https://growthappmiddleware.onrender.com",
     "growthappmiddleware.onrender.com",
     "growthappfrontend.onrender.com",
@@ -56,6 +57,7 @@ MIDDLEWARE = [
 
 # 🌐 CORS CONFIG (FINAL FIX)
 CORS_ALLOWED_ORIGINS = [
+    "https://growthappbackend.onrender.com/",
     "https://growthappfrontend.onrender.com",
     "https://growthappmiddleware.onrender.com",
     "http://localhost:5173",
@@ -65,6 +67,7 @@ CORS_ALLOW_CREDENTIALS = True
 
 # 🔐 CSRF (IMPORTANT for production)
 CSRF_TRUSTED_ORIGINS = [
+    "https://growthappbackend.onrender.com/",
     "https://growthappfrontend.onrender.com",
     "https://growthappmiddleware.onrender.com",
 ]
