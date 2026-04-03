@@ -8,20 +8,25 @@ load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# 🔐 Security
+# 🔐 SECURITY
 SECRET_KEY = os.getenv("SECRET_KEY", "dev-secret-key")
-DEBUG = True  # Change to False in production
-print("🔥 NEW SETTINGS LOADED 🔥")
+
+DEBUG = False  # ✅ Production mode
+
 ALLOWED_HOSTS = [
     "growthappbackend.onrender.com",
     "growthappmiddleware.onrender.com",
-    "growthappmiddleware.onrender.com",
     "growthappfrontend.onrender.com",
-    "localhost",
-    "127.0.0.1",
 ]
 
-# 📦 Installed Apps
+# 🔐 AUTH
+AUTH_USER_MODEL = 'users.User'
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+# 📦 INSTALLED APPS
 INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
@@ -38,7 +43,7 @@ INSTALLED_APPS = [
     'progress',
 ]
 
-# 🔧 Middleware
+# 🔧 MIDDLEWARE
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',  # MUST be first
 
@@ -55,26 +60,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# 🌐 CORS CONFIG (FINAL FIX)
-CORS_ALLOWED_ORIGINS = [
-    "https://growthappbackend.onrender.com/",
-    "https://growthappfrontend.onrender.com",
-    "https://growthappmiddleware.onrender.com",
-    "http://localhost:5173",
-]
-
-CORS_ALLOW_CREDENTIALS = True
-
-# 🔐 CSRF (IMPORTANT for production)
-CSRF_TRUSTED_ORIGINS = [
-    "https://growthappbackend.onrender.com/",
-    "https://growthappfrontend.onrender.com",
-    "https://growthappmiddleware.onrender.com",
-]
-
+# 🌐 URL CONFIG
 ROOT_URLCONF = 'core.urls'
 
-# 🧩 Templates
+# 🧩 TEMPLATES
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -91,7 +80,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'core.wsgi.application'
 
-# 🗄️ Database (SQLite for now)
+# 🗄️ DATABASE (SQLite - change to PostgreSQL later)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -99,10 +88,7 @@ DATABASES = {
     }
 }
 
-# 🔐 Custom User Model
-AUTH_USER_MODEL = 'users.User'
-
-# ⚡ Django REST Framework
+# ⚡ DRF SETTINGS
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
@@ -118,18 +104,38 @@ SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('Bearer',),
 }
 
-# 🌍 Internationalization
+# 🌐 CORS CONFIG (NO TRAILING SLASH)
+CORS_ALLOWED_ORIGINS = [
+    "https://growthappbackend.onrender.com",
+    "https://growthappfrontend.onrender.com",
+    "https://growthappmiddleware.onrender.com",
+    "http://localhost:5173",
+]
+
+CORS_ALLOW_CREDENTIALS = True
+
+# 🔐 CSRF TRUSTED ORIGINS
+CSRF_TRUSTED_ORIGINS = [
+    "https://growthappbackend.onrender.com",
+    "https://growthappfrontend.onrender.com",
+    "https://growthappmiddleware.onrender.com",
+]
+
+# 🔒 SECURITY HEADERS (IMPORTANT FOR RENDER)
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# 🌍 INTERNATIONALIZATION
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-# 📁 Static files
+# 📁 STATIC FILES
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-# ⚡ WhiteNoise config (for Render)
+# ⚡ WHITENOISE
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# 🔒 Default primary key
+# 🔒 DEFAULT PK
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
