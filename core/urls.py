@@ -8,6 +8,5 @@ urlpatterns = [
     path('api/users/', include('users.urls')),
     path('api/tasks/', include('tasks.urls')),
     path('api/progress/', include('progress.urls')),
-
     path('api/token/', TokenObtainPairView.as_view(), name='token'),
 ]
