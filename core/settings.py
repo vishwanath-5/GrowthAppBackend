@@ -10,7 +10,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # 🔐 Security
 SECRET_KEY = os.getenv("SECRET_KEY", "dev-secret-key")
-DEBUG = True
+DEBUG = False
 ALLOWED_HOSTS = ["*"]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
@@ -104,3 +104,4 @@ USE_TZ = True
 
 # 📁 Static files
 STATIC_URL = 'static/'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
