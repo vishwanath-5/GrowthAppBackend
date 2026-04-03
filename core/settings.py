@@ -12,7 +12,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("SECRET_KEY", "dev-secret-key")
 DEBUG = False
 ALLOWED_HOSTS = ["*"]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # 📦 Installed Apps
 INSTALLED_APPS = [
@@ -104,4 +103,5 @@ USE_TZ = True
 
 # 📁 Static files
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
